@@ -325,7 +325,7 @@ object SparkSubmit extends CommandLineUtils {
     // Require all python files to be local, so we can add them to the PYTHONPATH
     // In YARN cluster mode, python files are distributed as regular files, which can be non-local.
     // In Mesos cluster mode, non-local python files are automatically downloaded by Mesos.
-    if (args.isPython && !isYarnCluster && !isMesosCluster) {
+    if (args.isPython && !isYarnCluster && !isMesosCluster && !isKubernetesCluster) {
       if (Utils.nonLocalPaths(args.primaryResource).nonEmpty) {
         printErrorAndExit(s"Only local python files are supported: ${args.primaryResource}")
       }
@@ -336,7 +336,7 @@ object SparkSubmit extends CommandLineUtils {
     }
 
     // Require all R files to be local
-    if (args.isR && !isYarnCluster && !isMesosCluster) {
+    if (args.isR && !isYarnCluster && !isMesosCluster && !isKubernetesCluster) {
       if (Utils.nonLocalPaths(args.primaryResource).nonEmpty) {
         printErrorAndExit(s"Only local R files are supported: ${args.primaryResource}")
       }
