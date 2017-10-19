@@ -685,7 +685,7 @@ object SparkSubmit extends CommandLineUtils {
       val formattedPyFiles = if (!isYarnCluster && !isMesosCluster && !isKubernetesCluster) {
         PythonRunner.formatPaths(resolvedPyFiles).mkString(",")
       } else {
-        // Ignoring formatting python path in yarn, mesos, and kubernetes cluster mode, these two modes
+        // Ignoring formatting python path in yarn, mesos, and kubernetes cluster mode, these modes
         // support dealing with remote python files, they could distribute and add python files
         // locally.
         resolvedPyFiles
