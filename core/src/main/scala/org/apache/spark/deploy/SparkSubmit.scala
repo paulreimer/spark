@@ -682,10 +682,10 @@ object SparkSubmit extends CommandLineUtils {
     // explicitly sets `spark.submit.pyFiles` in his/her default properties file.
     sysProps.get("spark.submit.pyFiles").foreach { pyFiles =>
       val resolvedPyFiles = Utils.resolveURIs(pyFiles)
-      val formattedPyFiles = if (!isYarnCluster && !isMesosCluster) {
+      val formattedPyFiles = if (!isYarnCluster && !isMesosCluster && !isKubernetesCluster) {
         PythonRunner.formatPaths(resolvedPyFiles).mkString(",")
       } else {
-        // Ignoring formatting python path in yarn and mesos cluster mode, these two modes
+        // Ignoring formatting python path in yarn, mesos, and kubernetes cluster mode, these two modes
         // support dealing with remote python files, they could distribute and add python files
         // locally.
         resolvedPyFiles
